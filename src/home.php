@@ -11,17 +11,21 @@
     }
 
     $cpf = $_SESSION['cpf'];
-    $sql_query = "SELECT mudou_senha FROM respondente WHERE cpf=$cpf";
+    $userData = [];
+    $userDataNames = ["Nome", "E-mail", "Data de nascimento", "CPF", "Peso", "Altura"];
+    
+    $sql_query = "SELECT nome, email, data_nasc, cpf, peso, altura, mudou_senha FROM respondente WHERE cpf=$cpf";
     $result = mysqli_query($connection, $sql_query);
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
+            array_push($userData, $row["nome"], $row["email"], $row["data_nasc"], $row["cpf"], $row["peso"], $row["altura"]);
             $mudou_senha = $row["mudou_senha"];
         }
     }
 
     if ($mudou_senha == 0) {
-        $_SESSION['message'] = "Você precisa alterar a senha primeiro.";
+        $_SESSION['message2'] = "Você precisa alterar a senha primeiro.";
         header("Location: changePass.php");
         exit();
     }
@@ -38,6 +42,15 @@
 </head>
 <body>
     <h1>Home</h1>
+
+    <div class="data">
+        <h2>Dados:</h2>
+        <?php
+            for ($i = 0; $i < count($userData); $i++) {
+                echo "<p>" . $userDataNames[$i] . ": " . $userData[$i] . "</p>";
+            }
+        ?>
+    </div>
 
     <br>
     <a href="logout.php">Sair</a>
