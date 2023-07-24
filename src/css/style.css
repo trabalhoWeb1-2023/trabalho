@@ -22,7 +22,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4rem;
+    gap: 1rem;
 
     font-size: 1.6rem;
 }
@@ -70,6 +70,9 @@ button:hover,
 a:hover {
     cursor: pointer;
     filter: brightness(.6);
+}
+body a#logoutBtn {
+  background-color: rgb(161, 0, 0);
 }
 .forms-wrapper {
     display: flex;
@@ -120,7 +123,7 @@ dialog {
   flex-direction: column;
   gap: 1rem;
   align-items: left;
-  margin-block: 2rem;
+  margin-block: 4rem;
 }
 
 .data p {

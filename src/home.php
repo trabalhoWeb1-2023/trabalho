@@ -66,10 +66,11 @@
         ?>
     </div>
 
-    <a href="logout.php">Sair</a>
+    <a href="changePass.php">Alterar senha</a>
+    <a href="logout.php" id="logoutBtn">Sair</a>
 
     <script>
-        const logoutBtn = document.querySelector("a");
+        const logoutBtn = document.querySelector("a#logoutBtn");
         let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
         
         logoutBtn.addEventListener("click", () => alert("Você saiu!"));

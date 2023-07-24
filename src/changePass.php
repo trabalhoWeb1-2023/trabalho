@@ -57,7 +57,7 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <h1>Altere a senha para continuar</h1>
+    <h1>Altere a senha</h1>
 
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <div class="input-wrapper">
