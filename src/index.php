@@ -7,12 +7,13 @@
  -->
 
 <?php
-    include("connection.php");
-    include("session.php");
+include("connection.php");
+include("session.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,13 +22,14 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <h1>Início</h1>
 
     <form action="sendEmail.php" method="post">
         <label for="cpf">CPF</label>
         <input type="text" minlength="11" maxlength="11" name="cpf" />
-        <button type="submit">Clique</button>
+        <button type="submit">Avançar</button>
         <button type="button" id="registerModalBtn">Cadastre-se</button>
     </form>
     <dialog>
@@ -47,11 +49,11 @@
                 <input type="date" required name="birthdate" id="birthdate" />
             </div>
             <div class="input-wrapper">
-                <label for="weight">Peso:</label> <!-- questão da virgula passar pra ponto -->
+                <label for="weight">Peso (kg):</label> <!-- questão da virgula passar pra ponto -->
                 <input type="number" required name="weight" id="weight" />
             </div>
             <div class="input-wrapper">
-                <label for="height">Altura:</label>
+                <label for="height">Altura (m):</label>
                 <input type="number" required name="height" id="height" />
             </div>
             <div class="input-wrapper">
@@ -71,14 +73,15 @@
         const registerModal = document.querySelector("dialog");
 
         let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
-        let executou = <?php echo isset($_SESSION['indexExecutou']) ? json_encode($_SESSION['indexExecutou']) : json_encode("Teve erro"); ?>;
 
         registerModalBtn.addEventListener("click", () => {
             registerModal.showModal();
         });
 
         if (message != "") {
-            alert(message);
+            setTimeout(() => {
+                alert(message);
+            }, 100);
         }
 
         function closeModal() {
@@ -88,4 +91,5 @@
         feather.replace();
     </script>
 </body>
+
 </html>
