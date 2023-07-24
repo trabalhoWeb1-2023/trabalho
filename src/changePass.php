@@ -73,8 +73,12 @@
 
     <script>
         let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
+        let message2 = <?php echo isset($_SESSION['message2']) ? json_encode($_SESSION['message2']) : json_encode(""); ?>;
         let executou = <?php echo isset($_SESSION['changePassExecutou']) ? json_encode($_SESSION['changePassExecutou']) : json_encode("Teve erro"); ?>;
 
+        if (message2 != "") {
+            alert(message);
+        }
         if (!executou) {
             if (message != "") {
                 alert(message);

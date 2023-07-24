@@ -1,74 +1,88 @@
+<!-- 
+    TÁ FALTANDO aqui
+
+    - Corrigir o bug do echo, ta escrevendo alguma coisa na tela qnd manda email, antes de voltar pro index e alertar q enviou o email
+    - Corrigir bug do alert q n sai, igual tava rolando no do jogo da velha
+    - URL DO LOGIN VER SE VAI DEIXAR ASSIM
+-->
+
 <?php
-session_start();
-$_SESSION['message'] = "";
+    session_start();
+    include("connection.php");
 
-include("connection.php");
+    $_SESSION['message'] = "";
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php';
+    require '../vendor/autoload.php';
 
-function enviarEmail($destinatario, $assunto, $mensagem) {
-    $mail = new PHPMailer(true);
+    function enviarEmail($destinatario, $assunto, $mensagem) {
+        $mail = new PHPMailer(true);
 
-    try {
-        // Configurações do servidor SMTP do Gmail
-		$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'lucyanovidio@gmail.com';
-        $mail->Password = 'emokzeisfhapbllt'; // tive que por pra fazer verificação em dois passos e pagar uma senha de app na parte de verificação em dois passos
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = 587;
+        try {
+            // Configurações do servidor SMTP do Gmail
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'sistema.web.ufrrj@gmail.com';
+            $mail->Password = 'bxtnvotgnzyusahb'; // tive que por pra fazer verificação em dois passos e pagar uma senha de app na parte de verificação em dois passos
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
 
-        $mail->setFrom('lucyanovidio@gmail.com', 'Lucyan'); // Remetente
-        $mail->addAddress($destinatario); // Destinatário
-        $mail->Subject = $assunto; // Assunto do e-mail
-        $mail->Body = $mensagem; // Corpo do e-mail
+            $mail->setFrom('sistema.web.ufrrj@gmail.com', 'Sistema'); // Remetente
+            $mail->addAddress($destinatario); // Destinatário
+            $mail->Subject = $assunto; // Assunto do e-mail
+            $mail->Body = $mensagem; // Corpo do e-mail
 
-        $mail->send();
+            $mail->send();
 
-		$_SESSION['message'] = "E-mail enviado!";
+            $_SESSION['message'] = "Enviamos um e-mail para você! \nConfira seu e-mail, caixa de spam e lixeira.";
 
-        return true;
-    } catch (Exception $e) {
-		$_SESSION['message'] = "Houve um erro. Tente novamente.";
+            return true;
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Houve um erro. Tente novamente.";
 
-        return false;
+            return false;
+        }
     }
-}
 
-// ter um script aqui pra caso a pessoa ja ter mudado a senha, n precisar mandar email dnv, só jogar pra home.
+    $url = "http://localhost/projetos/trabalho/src/login.php"; // @
 
-$row;
-$email_to;
-$senha;
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $cpf = $_POST['cpf'];
+        $_SESSION['cpf'] = $cpf;
+    
+        $sql_query = "SELECT email, mudou_senha, senha FROM respondente WHERE cpf=$cpf";
+        $result = mysqli_query($connection, $sql_query);
+    
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $emailBD = $row["email"];
+                $senhaBD = $row["senha"];
+                $mudou_senha = $row["mudou_senha"];
+            }
+        } else {
+            $_SESSION['message'] = "CPF não cadastrado. Faça o cadastro.";
+            header("Location: index.php");	
+            exit();
+        }
+    
+        // Caso a pessoa esteja no primeiro acesso, envia o email. Caso contrario, vai direto para página de login
+    
+        if ($mudou_senha == 0) {
+            $body = "Bem-vindo!" . "\n\n" . "Sua senha é: " . $senhaBD . "\n" . "Acesse aqui: " . $url . "\n";
+            $assunto = 'Acesse sua conta';
+            
+            enviarEmail($emailBD, $assunto, $body);
+        } else {
+            header("Location: login.php");	
+            exit();
+        }
+    }
 
-$url = "URL do login aqui";
-$cpf = $_POST['cpf'];
-
-$sql_query = "SELECT email, senha FROM respondente WHERE cpf=$cpf";
-$result = mysqli_query($connection, $sql_query);
-
-if (mysqli_num_rows($result) > 0) {
-	while ($row = mysqli_fetch_assoc($result)) {
-		$email_to = $row["email"];
-		$senha = $row["senha"];
-	}
-} else {
-	$_SESSION['message'] = "CPF não cadastrado. Faça o cadastro.";
-	header("Location: index.php");	
-	exit();
-}
-
-$body = 'Bem-vindo!' . '\n' . 'Sua senha é: ' . $senha . "\n" . 'Acesse aqui: ' . $url;
-
-$assunto = 'Teste de envio de e-mail';
-
-enviarEmail($email_to, $assunto, $body);
 ?>
 
 <!DOCTYPE HTML>

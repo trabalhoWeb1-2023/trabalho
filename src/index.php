@@ -1,6 +1,14 @@
+<!-- 
+    FALTA AQUI
+
+    - máscara para cpf no form de enviar o email
+    - questões do cadastro, validação e inserção dos dados
+    - bug do alert que restou aqui
+ -->
+
 <?php
-session_start();
-include("connection.php");
+    include("connection.php");
+    include("session.php");
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +23,6 @@ include("connection.php");
 </head>
 <body>
     <h1>Início</h1>
-
-    <!-- Depois acrescentar a ideia de email tbm e pensar em outro nome pro arquivo -->
 
     <form action="sendEmail.php" method="post">
         <label for="cpf">CPF</label>
@@ -65,6 +71,7 @@ include("connection.php");
         const registerModal = document.querySelector("dialog");
 
         let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
+        let executou = <?php echo isset($_SESSION['indexExecutou']) ? json_encode($_SESSION['indexExecutou']) : json_encode("Teve erro"); ?>;
 
         registerModalBtn.addEventListener("click", () => {
             registerModal.showModal();

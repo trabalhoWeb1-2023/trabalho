@@ -31,6 +31,11 @@ body * {
     color: #fff;
 }   
 
+h2 {
+  color: green;
+  margin-bottom: 1rem;
+}
+
 form,
 dialog {
   width: min(50rem, 90%);
@@ -103,4 +108,17 @@ dialog {
     top: 3rem;
   
     cursor: pointer;
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: left;
+}
+
+.data p {
+  background-color: rgb(63, 63, 63);
+  border-radius: .5rem;
+  padding: 1rem;
 }
