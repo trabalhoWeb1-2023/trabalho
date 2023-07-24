@@ -11,9 +11,9 @@ $sleeptime = "";
 $email = "";
 $sql = "";
 
-if ($connection->connect_error) {
+if ($connection->connect_error) 
     die("falha na conexão: " . $connection->connect_error);
-} else
+ else
     echo "Conectado com BD!!";
 
 
@@ -62,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 function calcularDigitoVerificador($base)
 {
     // VAR AUX
-    $tamanho = strlen($base);
-    $multiplicador = $tamanho + 1;
+    $tamanho = strlen($base); 
+    $multiplicador = $tamanho + 1; 
     $soma = 0;
 
     for ($i = 0; $i < $tamanho; $i++) {
