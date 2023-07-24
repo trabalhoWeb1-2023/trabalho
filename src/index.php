@@ -34,7 +34,7 @@ include("connection.php");
             </div>
             <div class="input-wrapper">
                 <label for="cpf">CPF:</label>
-                <input type="number" required name="cpf" id="cpf" />
+                <input type="text" required name="cpf" id="cpf" />
             </div>
             <div class="input-wrapper">
                 <label for="birthdate">Data de nascimento:</label>
