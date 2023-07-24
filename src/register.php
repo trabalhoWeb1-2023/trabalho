@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include("connection.php");
 
 $name = "";
@@ -10,6 +10,7 @@ $height = "";
 $sleeptime = "";
 $email = "";
 $sql = "";
+$senha = "";
 
 if ($connection->connect_error) {
     die("falha na conexão: " . $connection->connect_error);
@@ -30,34 +31,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Verificações de validação
     if (!isValidCPF($cpf)) {
 
-        echo "CPF inválido! Por favor, verifique o CPF digitado.";
+        $_SESSION['message'] = "CPF inválido! Por favor, verifique o CPF digitado.";
+        header("Location: index.php");	
+        exit();
         // Se o CPF for inválido, você pode abortar o processo ou fazer alguma ação específica
     } elseif (!isValidEmail($email)) {
-        echo "Email inválido! Por favor, verifique o email digitado.";
+        
+        $_SESSION['message'] = "Email inválido! Por favor, verifique o email digitado.";
+        header("Location: index.php");	
+        exit();
         // Se o email for inválido, você pode abortar o processo ou fazer alguma ação específica
     } else {
         // Se o CPF e o email forem válidos, proceda com a inserção no banco de dados
         $newcpf = isValidCPF($cpf);
-        $sql = "INSERT INTO `respondente`(`nome`, `cpf`, `data_nasc`, `peso`, `altura`, `horas_sono_dia`, `email`)
-                    VALUES('$name', '$newcpf', '$birthdate', '$weight', '$height', '$sleeptime', '$email')";
+        $sql = "INSERT INTO `respondente`(`nome`, `cpf`, `data_nasc`, `peso`, `altura`, `horas_sono_dia`, `email`, `senha`)
+                    VALUES('$name', '$newcpf', '$birthdate', '$weight', '$height', '$sleeptime', '$email', '$birthdate')";
 
         $result = mysqli_query($connection, $sql);
 
         if ($result) {
-            echo "Dados inseridos no banco de dados com sucesso!";
+            $_SESSION['message'] = "Usuário cadastrado com sucesso!";
+            header("Location: index.php");	
+            exit();
         } else {
-            echo "Erro ao inserir os dados no banco de dados: " . mysqli_error($connection);
+            $_SESSION['message'] = "Erro ao inserir os dados no banco de dados: " . mysqli_error($connection);
+            header("Location: index.php");	
+            exit();
         }
-
-        /*  $sql = "INSERT INTO `respondente`(`nome`, `cpf`, `data_nasc`, `peso`, `altura`, `horas_sono_dia`, `email`)
-                VALUES('$name', '$cpf', '$birthdate', '$weight', '$height', '$sleeptime', '$email')";
-*/
     }
 } else
     echo "erro";
-    
-//@param string $base 
-// @return string
+
 
 function calcularDigitoVerificador($base)
 {
@@ -86,7 +90,17 @@ function isValidCPF($cpf)
     $cpf = preg_replace('/[^0-9]/', '', $cpf);
 
     // Verificar se o CPF tem 11 dígitos
-    if (strlen($cpf) != 11) {
+    if (strlen($cpf) != 11 ||
+        $cpf == 00000000000 ||
+        $cpf == 11111111111 ||
+        $cpf == 22222222222 ||
+        $cpf == 33333333333 ||
+        $cpf == 44444444444 ||
+        $cpf == 55555555555 ||
+        $cpf == 66666666666 ||
+        $cpf == 77777777777 ||
+        $cpf == 88888888888 ||
+        $cpf == 99999999999) {
         return false;
     }
     // digito verificador 
@@ -111,3 +125,4 @@ function isValidEmail($email)
     else
         return false;
 }
+?>
