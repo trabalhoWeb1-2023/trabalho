@@ -47,7 +47,7 @@
         $cpf = $_POST['cpf'];
         $_SESSION['cpf'] = $cpf;
     
-        $sql_query = "SELECT email, mudou_senha, senha FROM respondente WHERE cpf=$cpf";
+        $sql_query = "SELECT email, mudou_senha, senha, deletado FROM respondente WHERE cpf=$cpf";
         $result = mysqli_query($connection, $sql_query);
     
         if (mysqli_num_rows($result) > 0) {
@@ -55,13 +55,22 @@
                 $emailBD = $row["email"];
                 $senhaBD = $row["senha"];
                 $mudou_senha = $row["mudou_senha"];
+                $deletado = $row["deletado"];
             }
         } else {
             $_SESSION['message'] = "CPF não cadastrado. Faça o cadastro.";
             header("Location: index.php");	
             exit();
         }
-    
+        
+        // Caso a conta tiver sido deletada préviamente, retornar
+        
+        if ($deletado == 1) {
+            $_SESSION['message'] = "Esta conta foi deletada! Acesse outra ou cadastre-se.";
+            header("Location: index.php");	
+            exit();
+        }
+
         // Caso a pessoa esteja no primeiro acesso, envia o email. Caso contrario, vai direto para página de login
     
         if ($mudou_senha == 0) {

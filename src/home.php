@@ -80,13 +80,16 @@
     </div>
 
     <a href="changePass.php">Alterar senha</a>
+    <a href="delete.php" id="deleteAccountBtn">Deletar conta</a>
     <a href="logout.php" id="logoutBtn">Sair</a>
 
     <script>
         const logoutBtn = document.querySelector("a#logoutBtn");
+        const deleteAccountBtn = document.querySelector("#deleteAccountBtn");
         let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
         
         logoutBtn.addEventListener("click", () => alert("Você saiu!"));
+        deleteAccountBtn.addEventListener("click", () => alert("Conta excluída! Você está sendo redirecionado."));
         
         if (message != "") {
             alert(message);
