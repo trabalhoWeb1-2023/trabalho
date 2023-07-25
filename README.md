@@ -6,9 +6,7 @@
 
 ## Descrição do projeto :page_with_curl: 
 
-<p align="justify">
-  Projeto desenvolvido para a disciplina Sistemas Web 1 na UFRRJ, professor Tiago Cruz. Consiste em um sistema de cadastro, login com envio de e-mail, e acesso a dados cadastrados, para exercício das competências desenvolvidas na disciplina.
-</p>
+Projeto desenvolvido para a disciplina Sistemas Web 1 na UFRRJ, professor Tiago Cruz. Consiste em um sistema de cadastro, login com envio de e-mail, e acesso a dados cadastrados, para exercício das competências desenvolvidas na disciplina.
 * Páginas dinâmicas
 * DOM
 * PHP como linguagem para servidor
