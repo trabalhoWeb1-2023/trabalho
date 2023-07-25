@@ -2,7 +2,6 @@
     session_start();
     include("connection.php");
     $_SESSION['loginMessage'] = "";
-    $_SESSION['changePassExecutou'] = true;
 
     if ($_SESSION['loggedIn'] == false) {
         $_SESSION['message'] = "Você precisa logar primeiro.";
@@ -12,21 +11,21 @@
 
     $cpf = $_SESSION['cpf'];
     $userData = [];
-    $userDataNames = ["Nome", "E-mail", "Data de nascimento", "CPF", "Peso", "Altura"];
-    $userDataBDNames = ["nome", "email", "data_nasc", "cpf", "peso", "altura"];
+    $userDataNames = ["Nome", "E-mail", "Data de nascimento", "CPF", "Peso", "Altura", "E-mail secundário"];
+    $userDataBDNames = ["nome", "email", "data_nasc", "cpf", "peso", "altura", "novos_emails"];
 
-    $sql_query = "SELECT nome, email, data_nasc, cpf, peso, altura, mudou_senha FROM respondente WHERE cpf=$cpf";
+    $sql_query = "SELECT nome, email, data_nasc, cpf, peso, altura, mudou_senha, novos_emails FROM respondente WHERE cpf=$cpf";
     $result = mysqli_query($connection, $sql_query);
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            array_push($userData, $row["nome"], $row["email"], $row["data_nasc"], $row["cpf"], $row["peso"] . " kg", $row["altura"] . " m");
+            array_push($userData, $row["nome"], $row["email"], $row["data_nasc"], $row["cpf"], $row["peso"] . " kg", $row["altura"] . " m", $row["novos_emails"] ? $row["novos_emails"] : "");
             $mudou_senha = $row["mudou_senha"];
         }
     }
 
     if ($mudou_senha == 0) {
-        $_SESSION['message2'] = "Você precisa alterar a senha primeiro.";
+        $_SESSION['message'] = "Você precisa alterar a senha primeiro.";
         header("Location: changePass.php");
         exit();
     }
@@ -50,18 +49,32 @@
 
         <?php
             for ($i = 0; $i < count($userData); $i++) {
-                echo 
-                    "<p>
-                        <span>" . 
-                            $userDataNames[$i] . ": " . 
-                            "<span class='$userDataBDNames[$i]'>$userData[$i]</span>
-                        </span>" . 
-                        "<span>
-                            <i data-feather='edit-2'></i>
-                            <i data-feather='check' class='hide'></i>
-                            <i data-feather='x' class='hide'></i>
-                        </span>" . 
-                    "</p>";
+                $data = $userData[$i] != "" ? $userData[$i] : "Insira um segundo e-mail";
+
+                if ($userDataBDNames[$i] == "email") {
+                    $string = 
+                        "<p>
+                            <span>" . 
+                                $userDataNames[$i] . ": " . 
+                                "<span class='$userDataBDNames[$i]'>$data</span>
+                            </span>" . 
+                        "</p>";  
+                } else {
+                    $string = 
+                        "<p>
+                            <span>" . 
+                                $userDataNames[$i] . ": " . 
+                                "<span class='$userDataBDNames[$i]'>$data</span>
+                            </span>" .
+                            "<span>
+                                <i data-feather='edit-2'></i>
+                                <i data-feather='check' class='hide'></i>
+                                <i data-feather='x' class='hide'></i>
+                            </span>" . 
+                        "</p>";
+                }
+                
+                echo $string;
             }
         ?>
     </div>
@@ -101,7 +114,7 @@
                     function update() {
                         let newValue = currentData.children[0].value;
             
-                        window.location.href = "http://localhost/projetos/trabalho/src/update.php?className=" + encodeURIComponent(currentData.classList[0]) + "&newValue=" + encodeURIComponent(newValue);
+                        window.location.href = "http://localhost/trabalho/src/update.php?className=" + encodeURIComponent(currentData.classList[0]) + "&newValue=" + encodeURIComponent(newValue);
                     }
 
                     closeBtn.addEventListener('click', () => {

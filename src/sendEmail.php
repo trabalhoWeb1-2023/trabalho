@@ -1,11 +1,3 @@
-<!-- 
-    TÁ FALTANDO aqui
-
-    - Corrigir o bug do echo, ta escrevendo alguma coisa na tela qnd manda email, antes de voltar pro index e alertar q enviou o email
-    - Corrigir bug do alert q n sai, igual tava rolando no do jogo da velha
-    - URL DO LOGIN VER SE VAI DEIXAR ASSIM
--->
-
 <?php
     session_start();
     include("connection.php");
@@ -28,7 +20,7 @@
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'sistema.web.ufrrj@gmail.com';
-            $mail->Password = 'bxtnvotgnzyusahb'; // tive que por pra fazer verificação em dois passos e pagar uma senha de app na parte de verificação em dois passos
+            $mail->Password = 'bxtnvotgnzyusahb';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
@@ -49,7 +41,7 @@
         }
     }
 
-    $url = "http://localhost/projetos/trabalho/src/login.php"; // @
+    $url = "http://localhost/trabalho/src/login.php";
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $cpf = $_POST['cpf'];
@@ -82,7 +74,6 @@
             exit();
         }
     }
-
 ?>
 
 <!DOCTYPE HTML>

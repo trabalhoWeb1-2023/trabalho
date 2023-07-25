@@ -2,13 +2,11 @@
     FALTA AQUI
 
     - máscara para cpf no form de enviar o email
-    - questões do cadastro, validação e inserção dos dados
-    - bug do alert que restou aqui
  -->
 
 <?php
+session_start();
 include("connection.php");
-include("session.php");
 ?>
 
 <!DOCTYPE html>

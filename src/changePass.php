@@ -1,54 +1,61 @@
 <?php
-    session_start();
-    include("connection.php");
-    $_SESSION['loginMessage'] = "";
+session_start();
+include("connection.php");
+$_SESSION['loginMessage'] = "";
 
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        $cpf = $_SESSION['cpf'];
-        $senha_antiga = $_POST['senha-antiga'];
-        $senha_nova = $_POST['senha-nova'];
+if ($_SESSION['loggedIn'] == false) {
+    $_SESSION['message'] = "Você precisa logar primeiro.";
+    header("Location: index.php");
+    exit();
+}
 
-        $sql_query = "SELECT mudou_senha, senha FROM respondente WHERE cpf=?";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $cpf = $_SESSION['cpf'];
+    $senha_antiga = $_POST['senha-antiga'];
+    $senha_nova = $_POST['senha-nova'];
+
+    $sql_query = "SELECT mudou_senha, senha FROM respondente WHERE cpf=?";
+
+    // Prepared Statements
+    $stmt = $connection->prepare($sql_query);
+    $stmt->bind_param("s", $cpf);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $senhaBD = $row["senha"];
+            $mudou_senha = $row["mudou_senha"];
+        }
+    }
+
+    if ($senha_antiga == $senhaBD) {
+        $sql_query = "UPDATE respondente SET senha=?, mudou_senha=1  WHERE cpf=?";
 
         // Prepared Statements
         $stmt = $connection->prepare($sql_query);
-        $stmt->bind_param("s", $cpf);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $senhaBD = $row["senha"];
-                $mudou_senha = $row["mudou_senha"];
-            }
-        }
-        
-        if ($senha_antiga == $senhaBD) {
-            $sql_query = "UPDATE respondente SET senha=?, mudou_senha=1  WHERE cpf=?";
-            
-            // Prepared Statements
-            $stmt = $connection->prepare($sql_query);
-            $stmt->bind_param("ss", $senha_nova, $cpf);
+        $stmt->bind_param("ss", $senha_nova, $cpf);
 
-            if ($stmt->execute()) {
-                $_SESSION['message'] = "Senha atualizada com sucesso!";
-                header("Location: home.php");	
-	            exit();
-            } else {
-                $_SESSION['message'] = "Houve um erro na atualização da senha. Tente de novo.";
-                header("Location: changePass.php");	
-	            exit();
-            }
+        if ($stmt->execute()) {
+            $_SESSION['message'] = "Senha atualizada com sucesso!";
+            header("Location: home.php");
+            exit();
         } else {
-            $_SESSION['message'] = "A senha antiga está incorreta.";
-            header("Location: changePass.php");	
+            $_SESSION['message'] = "Houve um erro na atualização da senha. Tente de novo.";
+            header("Location: changePass.php");
             exit();
         }
+    } else {
+        $_SESSION['message'] = "A senha antiga está incorreta.";
+        header("Location: changePass.php");
+        exit();
     }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,6 +63,7 @@
     <title>Altere a senha</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <h1>Altere a senha</h1>
 
@@ -70,24 +78,18 @@
         </div>
         <button type="submit">Alterar e continuar</button>
     </form>
+    <a href="logout.php" id="logoutBtn">Sair</a>
 
     <script>
         let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
-        let message2 = <?php echo isset($_SESSION['message2']) ? json_encode($_SESSION['message2']) : json_encode(""); ?>;
-        let executou = <?php echo isset($_SESSION['changePassExecutou']) ? json_encode($_SESSION['changePassExecutou']) : json_encode("Teve erro"); ?>;
+        const logoutBtn = document.querySelector("a#logoutBtn");
 
-        if (message2 != "") {
+        logoutBtn.addEventListener("click", () => alert("Você saiu!"));
+
+        if (message != "") {
             alert(message);
         }
-        if (!executou) {
-            if (message != "") {
-                alert(message);
-            }
-        }
-
-        <?php
-            $_SESSION['changePassExecutou'] = false;
-        ?>
     </script>
 </body>
+
 </html>
