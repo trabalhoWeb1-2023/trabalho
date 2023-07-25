@@ -1,7 +1,7 @@
 # Sistemas Web 1 - Trabalho
 
 <p align="center">
-  <img src="./.github/preview.png"/>
+  <img width="900px" src="./.github/preview.png"/>
 </p>
 
 ## Descrição do projeto :page_with_curl: 
@@ -30,8 +30,9 @@
 git clone https://github.com/trabalhoWeb1-2023/trabalho.git
 ```
 
-* Acesse pela rota: https://localhost/trabalho/
+* Acesse o sistema pela rota: https://localhost/trabalho/
 
 ## Desenvolvedores
 
 | [<img src="https://github.com/lucyanovidio.png" width=115><br><sub>Lucyan Ovídio</sub>](https://github.com/lucyanovidio) |  [<img src="https://github.com/jvitorods.png" width=115><br><sub>Arthur de Melo</sub>](https://github.com/jvitorods)
+| :---: | :---: 
