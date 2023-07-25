@@ -34,5 +34,5 @@ git clone https://github.com/trabalhoWeb1-2023/trabalho.git
 
 ## Desenvolvedores
 
-| [<img src="https://github.com/lucyanovidio.png" width=115><br><sub>Lucyan Ovídio</sub>](https://github.com/lucyanovidio) |  [<img src="https://github.com/jvitorods.png" width=115><br><sub>Arthur de Melo</sub>](https://github.com/jvitorods)
+| [<img src="https://github.com/lucyanovidio.png" width=115><br><sub>Lucyan Ovídio</sub>](https://github.com/lucyanovidio) |  [<img src="https://github.com/jvitorods.png" width=115><br><sub>João Vitoro</sub>](https://github.com/jvitorods)
 | :---: | :---: 
