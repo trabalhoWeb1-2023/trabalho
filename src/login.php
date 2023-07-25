@@ -1,15 +1,7 @@
-<!-- 
-    FALTA AQUI
-
-    - máscara pro cpf
- -->
-
 <?php
     session_start();
     include("connection.php");
 
-    // $_SESSION['message'] = "";
-    
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $cpfUser = $_POST['cpf'];
         $senha = $_POST['senha'];
