@@ -81,14 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <a href="logout.php" id="logoutBtn">Sair</a>
 
     <script>
-        // let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
         const logoutBtn = document.querySelector("a#logoutBtn");
 
         logoutBtn.addEventListener("click", () => alert("Você saiu!"));
 
-        // if (message != "") {
-        //     alert(message);
-        // }
     </script>
 </body>
 

@@ -88,7 +88,7 @@
 <!DOCTYPE HTML>
 <html lang="pt-br">
 <head>
-	<meta HTTP-EQUIV="REFRESH" content="0; url=index.php">
+	<meta HTTP-EQUIV="REFRESH" content="0; url=../index.php">
 	<link rel="stylesheet" href="./css/style.css">
 </head>
 <body></body>
