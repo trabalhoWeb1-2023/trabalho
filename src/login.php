@@ -50,7 +50,7 @@
             }
         } else {
             $_SESSION['message'] = "Usuário incorreto. Tente novamente.";
-            header("Location: index.php");	
+            header("Location: ../index.php");	
             exit();
         }
     }

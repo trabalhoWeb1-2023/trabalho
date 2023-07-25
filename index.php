@@ -1,12 +1,6 @@
-<!-- 
-    FALTA AQUI
-
-    - máscara para cpf no form de enviar o email
- -->
-
 <?php
 session_start();
-include("connection.php");
+include("./src/connection.php");
 ?>
 
 <!DOCTYPE html>
@@ -18,20 +12,20 @@ include("connection.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início</title>
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./src/css/style.css">
 </head>
 
 <body>
     <h1>Início</h1>
 
-    <form action="sendEmail.php" method="post">
+    <form action="./src/sendEmail.php" method="post">
         <label for="cpf">CPF</label>
         <input type="text" minlength="11" maxlength="11" name="cpf" />
         <button type="submit">Avançar</button>
         <button type="button" id="registerModalBtn">Cadastre-se</button>
     </form>
     <dialog>
-        <form action="register.php" id="registerForm" method="post">
+        <form action="./src/register.php" id="registerForm" method="post">
             <i data-feather="x" onclick="closeModal()"></i>
             <h3>Cadastro</h3>
             <div class="input-wrapper">

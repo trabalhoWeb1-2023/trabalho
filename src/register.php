@@ -31,13 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!isValidCPF($cpf)) {
 
         $_SESSION['message'] = "CPF inválido! Por favor, verifique o CPF digitado.";
-        header("Location: index.php");	
+        header("Location: ../index.php");	
         exit();
         // Se o CPF for inválido, você pode abortar o processo ou fazer alguma ação específica
     } elseif (!isValidEmail($email)) {
         
         $_SESSION['message'] = "Email inválido! Por favor, verifique o email digitado.";
-        header("Location: index.php");	
+        header("Location: ../index.php");	
         exit();
         // Se o email for inválido, você pode abortar o processo ou fazer alguma ação específica
     } else {
@@ -50,17 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($result) {
             $_SESSION['message'] = "Usuário cadastrado com sucesso!";
-            header("Location: index.php");	
+            header("Location: ../index.php");	
             exit();
         } else {
             $_SESSION['message'] = "Erro ao inserir os dados no banco de dados: " . mysqli_error($connection);
-            header("Location: index.php");	
+            header("Location: ../index.php");	
             exit();
         }
     }
 } else
     echo "erro";
-
-
-
 ?>

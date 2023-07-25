@@ -59,7 +59,7 @@
             }
         } else {
             $_SESSION['message'] = "CPF não cadastrado. Faça o cadastro.";
-            header("Location: index.php");	
+            header("Location: ../index.php");	
             exit();
         }
         
@@ -67,7 +67,7 @@
         
         if ($deletado == 1) {
             $_SESSION['message'] = "Esta conta foi deletada! Acesse outra ou cadastre-se.";
-            header("Location: index.php");	
+            header("Location: ../index.php");	
             exit();
         }
 

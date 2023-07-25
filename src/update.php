@@ -1,5 +1,4 @@
 <?php
-// fazer um if, se for email, usa a função de validar pra dps armazenar
     session_start();
     include("connection.php");
     

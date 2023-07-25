@@ -8,5 +8,5 @@
     $_SESSION['message2'] = "";
 
     session_destroy();
-    header("Location: index.php");
+    header("Location: ../index.php");
 ?>

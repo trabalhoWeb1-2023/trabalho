@@ -5,7 +5,7 @@
 
     if ($_SESSION['loggedIn'] == false) {
         $_SESSION['message'] = "Você precisa logar primeiro.";
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit();
     }
 

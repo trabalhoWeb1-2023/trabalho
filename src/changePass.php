@@ -5,7 +5,7 @@ $_SESSION['loginMessage'] = "";
 
 if ($_SESSION['loggedIn'] == false) {
     $_SESSION['message'] = "Você precisa logar primeiro.";
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit();
 }
 
@@ -81,14 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <a href="logout.php" id="logoutBtn">Sair</a>
 
     <script>
-        let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
+        // let message = <?php echo isset($_SESSION['message']) ? json_encode($_SESSION['message']) : json_encode(""); ?>;
         const logoutBtn = document.querySelector("a#logoutBtn");
 
         logoutBtn.addEventListener("click", () => alert("Você saiu!"));
 
-        if (message != "") {
-            alert(message);
-        }
+        // if (message != "") {
+        //     alert(message);
+        // }
     </script>
 </body>
 
