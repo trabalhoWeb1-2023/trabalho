@@ -1,4 +1,4 @@
-# Sistemas Web 1 - Trabalho
+# Sistemas Web 1 - Projeto
 
 <p align="center">
   <img width="900px" src="./.github/preview.png"/>
@@ -20,7 +20,7 @@ Projeto desenvolvido para a disciplina Sistemas Web 1 na UFRRJ, professor Tiago 
 
 * Abra o XAMPP e ative o **Apache** e o **MySQL**.
 
-* Acesse https://localhost, acesse o **PHPMyAdmin**, entre na aba **SQL** e cole o conteúdo do arquivo[SQL_Query_BD.txt](./SQL_Query_BD.txt).
+* Acesse https://localhost, acesse o **PHPMyAdmin**, entre na aba **SQL** e cole o conteúdo do arquivo [SQL_Query_BD.txt](./SQL_Query_BD.txt).
 
 * No terminal, acesse o diretório **htdocs** dentro da pasta do XAMPP e clone o projeto: 
 
